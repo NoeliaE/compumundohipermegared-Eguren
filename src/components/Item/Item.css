@@ -1,0 +1,26 @@
+.product {
+    padding: .8em;
+    max-width: 300px;
+    border: solid 1px #587e76;
+    margin: .5em;
+}
+
+.item-title {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-description {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: normal;
+    text-align: left;
+}
+
+.item-price {
+    color: #587e76;
+    font-size: 36px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: 900;
+}
