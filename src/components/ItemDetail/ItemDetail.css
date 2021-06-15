@@ -1,0 +1,34 @@
+.item-detail {
+    margin: 3rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-detail p {
+    margin: 0;
+    width: 400px;
+}
+
+.item-detail .item-info {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.item-description {
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: normal;
+    text-align: left;
+}
+
+.item-price {
+    color: #587e76;
+    font-size: 36px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: 900;
+}
+
+.loading {
+    text-align: center;
+}
