@@ -18,7 +18,7 @@ nav {
     vertical-align: middle;
 }
 
-ul {
+ul.main-menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -30,7 +30,18 @@ ul {
     background-color: #f3f3f3; */
 }
 
-li a {
+ul.dropdown-menu{
+    position: absolute;
+    list-style-type: none;
+    background-color: #bd5734;
+    padding: 0;
+    display: none;
+    min-width: 130px;
+}
+li.dropdown-parent:hover > ul.dropdown-menu{
+    display: block !important;
+}
+li a, li > span {
     display: block;
     color: #fff;
     text-align: center;
@@ -38,6 +49,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li a:hover/*:not(.active)*/ , li > span:hover{
     background-color: #7a3b2e;
+    cursor: pointer;
 }
