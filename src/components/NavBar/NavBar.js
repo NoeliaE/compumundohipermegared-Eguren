@@ -11,8 +11,8 @@ function NavBar() {
     const getCategories = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve([
-                { id: "aa00", name: "categoria1" },
-                { id: "aa01", name: "categoria2" }
+                { id: "fashion", name: "fashion" },
+                { id: "alimentos", name: "alimentos" }
             ])
         }, 100);
     })

@@ -12,27 +12,30 @@ const ItemDetailContainer = () => {
                 let itemList = [
                     {
                         id: "AA00",
-                        title: "Producto1",
+                        title: "Manteca en barra",
                         description: "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas consectetur.",
                         price: 500,
-                        pictureUrl: 'https://via.placeholder.com/300x200?text=ImagePlaceholder',
-                        category: "aa00"
+                        pictureUrl: 'https://i.ibb.co/3zcp9cZ/butter.jpg',
+                        category: "alimentos",
+                        stock : 10
                     },
                     {
                         id: "AA02",
-                        title: "Producto2",
+                        title: "Estencil para labial",
                         description: "Morbi et venenatis purus. Fusce est tellus, maximus in elit sed, egestas tincidunt sem. Nullam.",
                         price: 1270,
-                        pictureUrl: 'https://via.placeholder.com/300x200?text=ImagePlaceholder',
-                        category: "aa00"
+                        pictureUrl: 'https://i.ibb.co/60t5j2B/stencil.jpg',
+                        category: "fashion",
+                        stock : 3
                     },
                     {
                         id: "AB02",
-                        title: "Producto3",
+                        title: "Paraguas de zapatos",
                         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel nibh interdum, dignissim arcu quis.",
                         price: 3555,
-                        pictureUrl: 'https://via.placeholder.com/300x200?text=ImagePlaceholder',
-                        category: "aa01"
+                        pictureUrl: 'https://i.ibb.co/XW62WZ6/umbrella.jpg',
+                        category: "fashion",
+                        stock : 5
                     }
                 ]
 
