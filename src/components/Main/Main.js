@@ -1,4 +1,5 @@
 import './Main.css';
+import CartProvider from '../../providers/CartProvider';
 import NavBar from '../NavBar/NavBar';
 import ItemListContainer from '../ItemListContainer/ItemListContainer';
 import ItemDetailContainer from '../ItemDetailContainer/ItemDetailContainer';
@@ -9,18 +10,20 @@ function Main() {
   return (
     // <div className="App">
     <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <ItemListContainer greeting="Nuestros productos:" />
-        </Route>
-        <Route path="/category/:id">
-          <ItemListContainer greeting="Nuestros productos:" />
-        </Route>
-        <Route path="/item/:id">
-          <ItemDetailContainer />
-        </Route>
-      </Switch>
+      <CartProvider>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <ItemListContainer greeting="Nuestros productos:" />
+          </Route>
+          <Route path="/category/:id">
+            <ItemListContainer greeting="Nuestros productos:" />
+          </Route>
+          <Route path="/item/:id">
+            <ItemDetailContainer />
+          </Route>
+        </Switch>
+      </CartProvider>
     </BrowserRouter>
     // </div>
   );

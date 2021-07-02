@@ -1,15 +1,24 @@
 import './ItemDetail.css';
 import ItemCount from '../ItemCount/ItemCount';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
+import CartProvider from '../../providers/CartProvider';
+import CartContext from '../../context/CartContext';
 const ItemDetail = ({ item }
 ) => {
-
     const [itemCount, setItemCount] = useState(0);
+    const { addItem, isInCart } = useContext(CartContext);
+
+    useEffect(() => {
+        let isInCartItem = isInCart(item.id);
+        console.log(isInCartItem);
+        isInCartItem != undefined && setItemCount(isInCartItem.amount);
+    }, [item])
 
     const onAdd = (amount) => {
         // alert(`Agregaste ${amount} ${amount === 1 ? 'producto' : 'productos'}`);
         setItemCount(amount);
+        addItem(item, amount);
     }
 
     return (
