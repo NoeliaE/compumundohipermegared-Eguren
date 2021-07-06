@@ -5,3 +5,20 @@
     vertical-align: middle;
     padding: 0 16px;
 }
+.cart-widget-container{
+    position: relative;
+}
+.cart-badge {
+    font-size: 12px;
+    background: #7a3b2e;
+    color: #fff;
+    padding: 0;
+    vertical-align: top;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    height: 16px;
+    text-align: center;
+    top: -5px;
+    left: 60%;
+    border-radius: 50%;
+}

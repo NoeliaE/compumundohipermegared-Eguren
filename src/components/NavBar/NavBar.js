@@ -42,7 +42,9 @@ function NavBar() {
                     </li>
                     <li><a href="#contact-us">CONTACTO</a></li>
                 </ul>
-                <CartWidget />
+                <NavLink to="/cart">
+                    <CartWidget />
+                </NavLink>
             </div>
         </nav>
     );
