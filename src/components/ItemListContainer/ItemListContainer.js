@@ -3,6 +3,7 @@ import './ItemListContainer.css'
 import ItemList from '../ItemList/ItemList';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getFirestore } from '../../factory/firebase';
 const ItemListContainer = ({ greeting }) => {
     // const onAdd = (amount) => {
     //     alert(`Agregaste ${amount} ${amount === 1 ? 'producto' : 'productos'}`)
@@ -11,47 +12,21 @@ const ItemListContainer = ({ greeting }) => {
     const { id } = useParams();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const getItems = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve([
-                {
-                    id: "AA00",
-                    title: "Manteca en barra",
-                    description: "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas consectetur.",
-                    price: 500,
-                    pictureUrl: 'https://i.ibb.co/3zcp9cZ/butter.jpg',
-                    category: "alimentos"
-                },
-                {
-                    id: "AA02",
-                    title: "Estencil para labial",
-                    description: "Morbi et venenatis purus. Fusce est tellus, maximus in elit sed, egestas tincidunt sem. Nullam.",
-                    price: 1270,
-                    pictureUrl: 'https://i.ibb.co/60t5j2B/stencil.jpg',
-                    category: "fashion"
-                },
-                {
-                    id: "AB02",
-                    title: "Paraguas de zapatos",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel nibh interdum, dignissim arcu quis.",
-                    price: 3555,
-                    pictureUrl: 'https://i.ibb.co/XW62WZ6/umbrella.jpg',
-                    category: "fashion"
-                }
-            ]);
-
-        }, 1000);
-    });
-
+    
     useEffect(() => {
         setLoading(true);
-        getItems.then(response => {
-            const filterItems = id === undefined ? response : response.filter(item => { if (item.category === id) return item });
-            setItems(filterItems);
+        const db = getFirestore();
+        const itemCollection = id === undefined ? db.collection("items") : db.collection("items").where('category', '==', id);
+        itemCollection.get().then((querySnapshot) => {
+            if (querySnapshot.size === 0) {
+                console.log("No hay items para mostrar");
+            }
+            setItems(querySnapshot.docs.map(doc => { return ({ ...doc.data(), id: doc.id }) }));
+        }).catch((error) => {
+            console.log("Algo salió mal", error);
+        }).finally(() => {
             setLoading(false);
-        })
-
+        });
     }, [id]);
     return (
         <div className="item-list-container">
