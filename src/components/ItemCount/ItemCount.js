@@ -27,7 +27,7 @@ function ItemCount(
                     <span>{items}</span>
                     <img src={add} className="change-total" onClick={() => addItem()} alt="" />
                 </div>
-                <button className="add-to-cart" disabled={stock === 0 ? true : false} onClick={()=> stock > 0 && onAdd(items)}>Agregar al carrito</button>
+                <button className="add-to-cart" disabled={stock === 0 ? true : false} onClick={() => stock > 0 && onAdd(items)}>Agregar al carrito</button>
             </div>
         </div>
     )

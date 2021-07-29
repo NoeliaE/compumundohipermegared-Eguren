@@ -2,7 +2,6 @@ import './ItemDetail.css';
 import ItemCount from '../ItemCount/ItemCount';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import CartProvider from '../../providers/CartProvider';
 import CartContext from '../../context/CartContext';
 const ItemDetail = ({ item }
 ) => {
@@ -11,12 +10,10 @@ const ItemDetail = ({ item }
 
     useEffect(() => {
         let isInCartItem = isInCart(item.id);
-        console.log(isInCartItem);
-        isInCartItem != undefined && setItemCount(isInCartItem.amount);
+        isInCartItem !== undefined && setItemCount(isInCartItem.amount);
     }, [item])
 
     const onAdd = (amount) => {
-        // alert(`Agregaste ${amount} ${amount === 1 ? 'producto' : 'productos'}`);
         setItemCount(amount);
         addItem(item, amount);
     }
@@ -26,7 +23,7 @@ const ItemDetail = ({ item }
             <div className="item-detail">
                 <h1>{item.title}</h1>
                 <div className="item-info" >
-                    <img src={item.pictureUrl} alt={`${item.title} image`} />
+                    <img src={item.pictureUrl} alt={`${item.title}`} />
                     <div style={{ marginLeft: '3em', position: 'relative' }}>
                         <p className="item-price">
                             {item.price && `$${item.price}`}
@@ -35,7 +32,7 @@ const ItemDetail = ({ item }
                             {item.description}
                         </p>
                         <div style={{ position: 'absolute', bottom: 0 }}>
-                            {itemCount == 0 ?
+                            {itemCount === 0 ?
                                 <ItemCount initial={1} stock={item.stock} onAdd={onAdd} />
                                 :
                                 <Link to="/cart">

@@ -40,7 +40,6 @@ function NavBar() {
                             })}
                         </ul>
                     </li>
-                    <li><a href="#contact-us">CONTACTO</a></li>
                 </ul>
                 <NavLink to="/cart">
                     <CartWidget />

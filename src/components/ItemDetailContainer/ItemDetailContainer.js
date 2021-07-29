@@ -9,13 +9,11 @@ const ItemDetailContainer = () => {
     const [item, setItem] = useState({});
     useEffect(() => {
         const db = getFirestore();
-        console.warn("id", id);
         const itemCollection = db.collection("items").doc(id);
         itemCollection.get().then((querySnapshot) => {
             if (querySnapshot.size === 0) {
                 console.log("El item no existe");
             }
-            console.log("querysnapshot", querySnapshot)
             setItem({ ...querySnapshot.data(), id: id });
         }).catch((error) => {
             console.log("Algo salió mal", error);

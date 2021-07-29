@@ -1,13 +1,9 @@
 import './ItemListContainer.css'
-// import ItemCount from '../ItemCount/ItemCount';
 import ItemList from '../ItemList/ItemList';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getFirestore } from '../../factory/firebase';
 const ItemListContainer = ({ greeting }) => {
-    // const onAdd = (amount) => {
-    //     alert(`Agregaste ${amount} ${amount === 1 ? 'producto' : 'productos'}`)
-    // }
 
     const { id } = useParams();
     const [items, setItems] = useState([]);
@@ -28,6 +24,7 @@ const ItemListContainer = ({ greeting }) => {
             setLoading(false);
         });
     }, [id]);
+
     return (
         <div className="item-list-container">
             <h1>

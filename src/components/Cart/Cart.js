@@ -1,7 +1,7 @@
 import './Cart.css';
 import removeItemIcon from '../../assets/icons/close-outline.svg';
 import CartContext from '../../context/CartContext';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getFirestore } from '../../factory/firebase';
 import firebase from 'firebase/app';
@@ -10,7 +10,9 @@ import firebase from 'firebase/app';
 const Cart = () => {
     const { cart, removeItem, clear, getTotalPrice } = useContext(CartContext);
 
-    const [cartMessage, setCartMessage] = useState('No hay items en el carrito :(')
+    //STATES
+    const [cartMessage, setCartMessage] = useState('No hay items en el carrito :(');
+    const [paymentError, setPaymentError] = useState(false);
     const [validate, setValidate] = useState({
         name: undefined,
         mail: undefined,
@@ -19,9 +21,10 @@ const Cart = () => {
     })
 
 
+    //UPDATE AND VALIDATE INPUTS
     const updateName = (e) => {
         let value = e.target.value;
-        if (value === "")  value = undefined;
+        if (value === "") value = undefined;
         setValidate(prevState => ({
             ...prevState,
             name: value
@@ -29,24 +32,37 @@ const Cart = () => {
     }
     const updateMail = (e) => {
         let value = e.target.value;
-        if (value === "")  value = undefined;
-        setValidate(prevState => ({
-            ...prevState,
-            mail: value
-        }))
+
+        validateEmail(value) ?
+            setValidate(prevState => ({
+                ...prevState,
+                mail: value
+            }))
+            : value = undefined;
     }
+
+    const validateEmail = (mail) => {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
+            return true;
+
+        return false;
+    }
+
+
     const updatePhone = (e) => {
         let value = e.target.value;
-        if (value === "")  value = undefined;
+        if (value === "") value = undefined;
         setValidate(prevState => ({
             ...prevState,
             phone: value
         }))
     }
+
+    //SEND ORDER
     const sendOrder = (event) => {
         event.preventDefault();
-        const { name, mail, phone, isValid } = validate;
-        if (name != undefined && mail != undefined && phone != undefined) {
+        const { name, mail, phone } = validate;
+        if (name !== undefined && mail !== undefined && phone !== undefined) {
             const db = getFirestore();
             const orders = db.collection("orders");
             const newOrder = {
@@ -59,7 +75,8 @@ const Cart = () => {
                 setCartMessage(`Pedido registrado. Su id: ${id}`);
                 clear();
             }).catch(error => {
-                alert("Su pedido no pudo ser registrado")
+                setCartMessage("Su pedido no pudo ser registrado, inténtelo nuevamente más tarde");
+                setPaymentError(true);
             })
         } else {
             setValidate(prevState => ({ ...prevState, isValid: false }))
@@ -69,6 +86,8 @@ const Cart = () => {
         <div className="cart-container">
             {cart.length > 0 ?
                 <>
+                    {paymentError &&
+                        <h4>{cartMessage}</h4>}
                     <h3>
                         Detalle de tu compra:
                     </h3>
@@ -124,11 +143,11 @@ const Cart = () => {
                         </h3>
                         <form onSubmit={(ev) => sendOrder(ev)}>
                             <label htmlFor="fname">Nombre*:</label><br />
-                            <input className={validate.name != undefined || validate.isValid === true ? 'valid' : 'invalid'} type="text" id="fname" name="fname" onChange={(e) => updateName(e)} /><br />
+                            <input className={validate.name !== undefined || validate.isValid === true ? 'valid' : 'invalid'} type="text" id="fname" name="fname" onChange={(e) => updateName(e)} /><br />
                             <label htmlFor="fmail">Mail*:</label><br />
-                            <input className={validate.mail != undefined || validate.isValid === true ? 'valid' : 'invalid'} type="text" id="fmail" name="fmail" onChange={(e) => updateMail(e)} /><br />
+                            <input className={validate.mail !== undefined || validate.isValid === true ? 'valid' : 'invalid'} type="text" id="fmail" name="fmail" onChange={(e) => updateMail(e)} /><br />
                             <label htmlFor="fname">Teléfono*:</label><br />
-                            <input className={validate.phone != undefined || validate.isValid === true ? 'valid' : 'invalid'} type="number" id="fphone" name="fphone" onChange={(e) => updatePhone(e)} /><br />
+                            <input className={validate.phone !== undefined || validate.isValid === true ? 'valid' : 'invalid'} type="number" id="fphone" name="fphone" onChange={(e) => updatePhone(e)} /><br />
 
                             <p>* campos obligatorios</p>
                             <div>
@@ -139,15 +158,10 @@ const Cart = () => {
                                     Terminar compra
                                 </button>
                             </div>
-
-
                         </form>
                     </div>
                     <div>
-
-
                     </div>
-
                 </>
                 :
                 <>

@@ -26,8 +26,6 @@ ul.main-menu {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
-    /* border: 1px solid #e7e7e7;
-    background-color: #f3f3f3; */
 }
 
 ul.dropdown-menu{
@@ -49,7 +47,7 @@ li a, li > span {
     text-decoration: none;
 }
 
-li a:hover/*:not(.active)*/ , li > span:hover{
+li a:hover , li > span:hover{
     background-color: #7a3b2e;
     cursor: pointer;
 }
